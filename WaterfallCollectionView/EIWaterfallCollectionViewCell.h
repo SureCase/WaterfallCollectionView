@@ -1,5 +1,5 @@
 //
-//  EIViewController.h
+//  EIWaterfallCollectionViewCell.h
 //  WaterfallCollectionView
 //
 //  Created by Miroslaw Stanek on 12.07.2013.
@@ -8,8 +8,8 @@
 
 #import <UIKit/UIKit.h>
 
-@interface EIViewController : UIViewController
+@interface EIWaterfallCollectionViewCell : UICollectionViewCell
 
-@property (weak, nonatomic) IBOutlet UICollectionView *cv;
+@property (nonatomic, strong, readonly) UILabel *titleLabel;
 
 @end

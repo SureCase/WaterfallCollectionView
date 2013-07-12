@@ -18,6 +18,9 @@
 		9976E413178FFE3F005966E8 /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9976E412178FFE3F005966E8 /* Default-568h@2x.png */; };
 		9976E416178FFE3F005966E8 /* MainStoryboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9976E414178FFE3F005966E8 /* MainStoryboard.storyboard */; };
 		9976E419178FFE3F005966E8 /* EIViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9976E418178FFE3F005966E8 /* EIViewController.m */; };
+		9976E427179022B9005966E8 /* EIWaterfallCollectionViewLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = 9976E426179022B9005966E8 /* EIWaterfallCollectionViewLayout.m */; };
+		9976E42A1790238C005966E8 /* EIWaterfallCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 9976E4291790238C005966E8 /* EIWaterfallCollectionViewCell.m */; };
+		9976E42D1790819E005966E8 /* EIHeaderReusableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 9976E42C1790819E005966E8 /* EIHeaderReusableView.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -37,6 +40,12 @@
 		9976E415178FFE3F005966E8 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = en; path = en.lproj/MainStoryboard.storyboard; sourceTree = "<group>"; };
 		9976E417178FFE3F005966E8 /* EIViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = EIViewController.h; sourceTree = "<group>"; };
 		9976E418178FFE3F005966E8 /* EIViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = EIViewController.m; sourceTree = "<group>"; };
+		9976E425179022B9005966E8 /* EIWaterfallCollectionViewLayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EIWaterfallCollectionViewLayout.h; sourceTree = "<group>"; };
+		9976E426179022B9005966E8 /* EIWaterfallCollectionViewLayout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EIWaterfallCollectionViewLayout.m; sourceTree = "<group>"; };
+		9976E4281790238C005966E8 /* EIWaterfallCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EIWaterfallCollectionViewCell.h; sourceTree = "<group>"; };
+		9976E4291790238C005966E8 /* EIWaterfallCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EIWaterfallCollectionViewCell.m; sourceTree = "<group>"; };
+		9976E42B1790819D005966E8 /* EIHeaderReusableView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EIHeaderReusableView.h; sourceTree = "<group>"; };
+		9976E42C1790819E005966E8 /* EIHeaderReusableView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EIHeaderReusableView.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -89,6 +98,12 @@
 				9976E417178FFE3F005966E8 /* EIViewController.h */,
 				9976E418178FFE3F005966E8 /* EIViewController.m */,
 				9976E403178FFE3F005966E8 /* Supporting Files */,
+				9976E425179022B9005966E8 /* EIWaterfallCollectionViewLayout.h */,
+				9976E426179022B9005966E8 /* EIWaterfallCollectionViewLayout.m */,
+				9976E4281790238C005966E8 /* EIWaterfallCollectionViewCell.h */,
+				9976E4291790238C005966E8 /* EIWaterfallCollectionViewCell.m */,
+				9976E42B1790819D005966E8 /* EIHeaderReusableView.h */,
+				9976E42C1790819E005966E8 /* EIHeaderReusableView.m */,
 			);
 			path = WaterfallCollectionView;
 			sourceTree = "<group>";
@@ -177,6 +192,9 @@
 				9976E409178FFE3F005966E8 /* main.m in Sources */,
 				9976E40D178FFE3F005966E8 /* EIAppDelegate.m in Sources */,
 				9976E419178FFE3F005966E8 /* EIViewController.m in Sources */,
+				9976E427179022B9005966E8 /* EIWaterfallCollectionViewLayout.m in Sources */,
+				9976E42A1790238C005966E8 /* EIWaterfallCollectionViewCell.m in Sources */,
+				9976E42D1790819E005966E8 /* EIHeaderReusableView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -299,6 +317,7 @@
 				9976E41E178FFE3F005966E8 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

@@ -1,23 +1,104 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="2.0" toolsVersion="2519" systemVersion="12A206j" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="2">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="2.0" toolsVersion="3084" systemVersion="12E55" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="2">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="1856"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="2083"/>
     </dependencies>
     <scenes>
-        <!--class Prefix:identifier View Controller-->
+        <!--View Controller-->
         <scene sceneID="5">
             <objects>
                 <viewController id="2" customClass="EIViewController" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="3">
-                        <rect key="frame" x="0.0" y="20" width="320" height="460"/>
+                        <rect key="frame" x="0.0" y="20" width="320" height="548"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <subviews>
+                            <collectionView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" minimumZoomScale="0.0" maximumZoomScale="0.0" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="JKK-7d-Dxh">
+                                <color key="backgroundColor" cocoaTouchSystemColor="scrollViewTexturedBackgroundColor"/>
+                                <collectionViewLayout key="collectionViewLayout" id="G4h-ra-7jm" customClass="EIWaterfallCollectionViewLayout">
+                                    <connections>
+                                        <outlet property="delegate" destination="2" id="kYF-du-Grg"/>
+                                    </connections>
+                                </collectionViewLayout>
+                                <cells>
+                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" restorationIdentifier="WaterfallCell" reuseIdentifier="WaterfallCell" id="xCs-4Z-VAd" customClass="EIWaterfallCollectionViewCell">
+                                        <rect key="frame" x="57" y="0.0" width="206" height="175"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                                            <rect key="frame" x="0.0" y="0.0" width="206" height="175"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="uJn-7j-6MG">
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                        </view>
+                                        <constraints>
+                                            <constraint firstItem="uJn-7j-6MG" firstAttribute="centerY" secondItem="xCs-4Z-VAd" secondAttribute="centerY" type="default" id="3HV-Ig-BKZ"/>
+                                            <constraint firstItem="uJn-7j-6MG" firstAttribute="centerX" secondItem="xCs-4Z-VAd" secondAttribute="centerX" type="default" id="Grc-oK-mt5"/>
+                                        </constraints>
+                                        <size key="customSize" width="206" height="175"/>
+                                        <connections>
+                                            <outlet property="lbl" destination="uJn-7j-6MG" id="Gfe-vH-Lh6"/>
+                                        </connections>
+                                    </collectionViewCell>
+                                </cells>
+                                <connections>
+                                    <outlet property="dataSource" destination="2" id="FeE-9I-hRV"/>
+                                    <outlet property="delegate" destination="2" id="dkT-1q-ADV"/>
+                                </connections>
+                            </collectionView>
+                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="JKK-7d-Dxh" firstAttribute="leading" secondItem="3" secondAttribute="leading" type="default" id="5Ve-wN-vJB"/>
+                            <constraint firstItem="JKK-7d-Dxh" firstAttribute="top" secondItem="3" secondAttribute="top" type="default" id="6sR-Co-CZy"/>
+                            <constraint firstItem="JKK-7d-Dxh" firstAttribute="trailing" secondItem="3" secondAttribute="trailing" type="default" id="Ayk-D5-sbg"/>
+                            <constraint firstItem="JKK-7d-Dxh" firstAttribute="bottom" secondItem="3" secondAttribute="bottom" type="default" id="xeG-j7-Iln"/>
+                        </constraints>
                     </view>
+                    <connections>
+                        <outlet property="cv" destination="JKK-7d-Dxh" id="04o-pb-YXl"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="4" sceneMemberID="firstResponder"/>
             </objects>
         </scene>
     </scenes>
+    <classes>
+        <class className="EIViewController" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/EIViewController.h"/>
+            <relationships>
+                <relationship kind="outlet" name="cv" candidateClass="UICollectionView"/>
+            </relationships>
+        </class>
+        <class className="EIWaterfallCollectionViewCell" superclassName="UICollectionViewCell">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/EIWaterfallCollectionViewCell.h"/>
+            <relationships>
+                <relationship kind="outlet" name="lbl" candidateClass="UILabel"/>
+            </relationships>
+        </class>
+        <class className="EIWaterfallCollectionViewLayout" superclassName="UICollectionViewLayout">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/EIWaterfallCollectionViewLayout.h"/>
+            <relationships>
+                <relationship kind="outlet" name="delegate"/>
+            </relationships>
+        </class>
+        <class className="NSLayoutConstraint" superclassName="NSObject">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/NSLayoutConstraint.h"/>
+        </class>
+        <class className="UICollectionReusableView" superclassName="UIView">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/UICollectionReusableView.h"/>
+        </class>
+        <class className="UICollectionViewCell" superclassName="UICollectionReusableView">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/UICollectionViewCell.h"/>
+        </class>
+        <class className="UICollectionViewLayout" superclassName="NSObject">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/UICollectionViewLayout.h"/>
+        </class>
+    </classes>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
         <simulatedStatusBarMetrics key="statusBar"/>
         <simulatedOrientationMetrics key="orientation"/>
