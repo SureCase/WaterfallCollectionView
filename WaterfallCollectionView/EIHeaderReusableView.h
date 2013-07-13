@@ -10,6 +10,6 @@
 
 @interface EIHeaderReusableView : UICollectionReusableView
 
-@property (nonatomic, strong, readonly) UILabel *titleLabel;
+@property (weak, nonatomic) IBOutlet UILabel *lblTitle;
 
 @end

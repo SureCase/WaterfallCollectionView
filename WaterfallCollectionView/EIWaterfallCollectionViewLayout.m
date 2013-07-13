@@ -9,7 +9,6 @@
 #import "EIWaterfallCollectionViewLayout.h"
 
 NSString* const EIWaterfallLayoutCellKind = @"WaterfallCell";
-NSString* const EIWaterfallTitleKind = @"WaterfalHeader";
 
 @interface EIWaterfallCollectionViewLayout()
 
@@ -42,9 +41,9 @@ NSString* const EIWaterfallTitleKind = @"WaterfalHeader";
     return self;
 }
 
-- (void)setTitleHeight:(CGFloat)titleHeight {
-    if (_titleHeight == titleHeight) return;
-    _titleHeight = titleHeight;
+- (void)setHeaderHeight:(CGFloat)headerHeight {
+    if (_headerHeight == headerHeight) return;
+    _headerHeight = headerHeight;
     [self invalidateLayout];
 }
 
@@ -57,7 +56,7 @@ NSString* const EIWaterfallTitleKind = @"WaterfalHeader";
 - (void)setup {
     self.itemInsets = UIEdgeInsetsMake(15.0f, 15.0f, 15.0f, 15.0f);
     self.numberOfColumns = 2;
-    self.titleHeight = 26.0f;
+    self.headerHeight = 26.0f;
     self.itemWidth = 140.0f;
     self.itemInnerMargin = 0;
 }
@@ -67,6 +66,8 @@ NSString* const EIWaterfallTitleKind = @"WaterfalHeader";
     [self calculateItemsHeights];
     [self calculateSectionsHeights];
     [self calculateItemsAttributes];
+    
+    NSLog(@"Prepared layout %@", self.sectionsHeights);
 }
 
 - (NSArray *)layoutAttributesForElementsInRect:(CGRect)rect {
@@ -93,7 +94,7 @@ NSString* const EIWaterfallTitleKind = @"WaterfalHeader";
 
 - (UICollectionViewLayoutAttributes *)layoutAttributesForSupplementaryViewOfKind:(NSString *)kind
                                                                      atIndexPath:(NSIndexPath *)indexPath {
-    return self.layoutInfo[EIWaterfallTitleKind][indexPath];
+    return self.layoutInfo[UICollectionElementKindSectionHeader][indexPath];
 }
 
 - (CGSize)collectionViewContentSize {
@@ -149,7 +150,7 @@ NSString* const EIWaterfallTitleKind = @"WaterfalHeader";
 - (NSNumber*) calculateHeightForSection: (NSInteger)section {
     NSInteger sectionColumns[self.numberOfColumns];
     for (NSInteger column = 0; column < self.numberOfColumns; column++) {
-        sectionColumns[column] = self.titleHeight + self.itemInnerMargin;
+        sectionColumns[column] = self.headerHeight + self.itemInnerMargin;
     }
     
     NSInteger itemCount = [self.collectionView numberOfItemsInSection:section];
@@ -196,7 +197,7 @@ NSString* const EIWaterfallTitleKind = @"WaterfalHeader";
             //Only one header in section, so we get only item at 0 position
             if (indexPath.item == 0) {
                 UICollectionViewLayoutAttributes *titleAttributes = [UICollectionViewLayoutAttributes
-                                                                     layoutAttributesForSupplementaryViewOfKind:EIWaterfallTitleKind
+                                                                     layoutAttributesForSupplementaryViewOfKind:UICollectionElementKindSectionHeader
                                                                      withIndexPath:indexPath];
                 titleAttributes.frame = [self frameForWaterfallHeaderAtIndexPath:indexPath];
                 titleLayoutInfo[indexPath] = titleAttributes;
@@ -205,7 +206,7 @@ NSString* const EIWaterfallTitleKind = @"WaterfalHeader";
     }
     
     newLayoutInfo[EIWaterfallLayoutCellKind] = cellLayoutInfo;
-    newLayoutInfo[EIWaterfallTitleKind] = titleLayoutInfo;
+    newLayoutInfo[UICollectionElementKindSectionHeader] = titleLayoutInfo;
     
     self.layoutInfo = newLayoutInfo;
     
@@ -225,7 +226,7 @@ NSString* const EIWaterfallTitleKind = @"WaterfalHeader";
 
     NSInteger columnsHeights[self.numberOfColumns];
     for (NSInteger column = 0; column < self.numberOfColumns; column++) {
-        columnsHeights[column] = self.titleHeight + self.itemInnerMargin;
+        columnsHeights[column] = self.headerHeight + self.itemInnerMargin;
     }
     
     for (NSInteger item = 0; item < indexPath.item; item++) {
@@ -259,15 +260,14 @@ NSString* const EIWaterfallTitleKind = @"WaterfalHeader";
     CGFloat width = self.collectionView.bounds.size.width -
         self.itemInsets.left -
         self.itemInsets.right;
-    CGFloat height = self.titleHeight;
+    CGFloat height = self.headerHeight;
     
     CGFloat originY = self.itemInsets.top;
     for (NSInteger i = 0; i < indexPath.section; i++) {
         originY += [[self.sectionsHeights objectAtIndex:i] floatValue];
     }
         
-    CGFloat originX = self.itemInsets.left;
-
+    CGFloat originX = self.itemInsets.left;    
     return CGRectMake(originX, originY, width, height);
 }
 

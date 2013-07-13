@@ -10,7 +10,7 @@
 
 @class EIWaterfallCollectionViewLayout;
 
-UIKIT_EXTERN NSString * const EIWaterfallTitleKind;
+UIKIT_EXTERN NSString * const EIWaterfallHeaderKind;
 
 @protocol EIWaterfallCollectionViewDelegate <UICollectionViewDelegate>
 
@@ -28,6 +28,6 @@ UIKIT_EXTERN NSString * const EIWaterfallTitleKind;
 @property (nonatomic) NSInteger numberOfColumns;
 
 @property (nonatomic) CGFloat itemWidth;
-@property (nonatomic) CGFloat titleHeight;
+@property (nonatomic) CGFloat headerHeight;
 
 @end

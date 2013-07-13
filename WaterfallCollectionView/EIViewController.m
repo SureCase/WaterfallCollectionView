@@ -11,8 +11,8 @@
 #import "EIWaterfallCollectionViewLayout.h"
 #import "EIHeaderReusableView.h"
 
-static NSString* const WaterfallCellIdentifier = @"WaterfallCellIdentifier";
-static NSString* const WaterfallTitleIdentifier = @"WaterfallTitleIdentifier";
+static NSString* const WaterfallCellIdentifier = @"WaterfallCell";
+static NSString* const WaterfallHeaderIdentifier = @"WaterfallHeader";
 
 @interface EIViewController () <EIWaterfallCollectionViewDelegate, UICollectionViewDelegate>
 
@@ -25,12 +25,15 @@ static NSString* const WaterfallTitleIdentifier = @"WaterfallTitleIdentifier";
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.cv.delegate = self;
+    
+    EIWaterfallCollectionViewLayout *cvLayout = [[EIWaterfallCollectionViewLayout alloc] init];
+    cvLayout.delegate = self;
+    [self.cv setCollectionViewLayout:cvLayout];
+    [self.cv reloadData];
+}
 
-    [self.cv registerClass:[EIWaterfallCollectionViewCell class]
-forCellWithReuseIdentifier:WaterfallCellIdentifier];
-    [self.cv registerClass:[EIHeaderReusableView class]
-forSupplementaryViewOfKind:EIWaterfallTitleKind
-       withReuseIdentifier:WaterfallTitleIdentifier];
+- (void)didRotateFromInterfaceOrientation:(UIInterfaceOrientation)fromInterfaceOrientation {
+    [[self.cv collectionViewLayout] invalidateLayout];
 }
 
 #pragma mark - UICollectionViewDataSource
@@ -48,14 +51,7 @@ forSupplementaryViewOfKind:EIWaterfallTitleKind
                   cellForItemAtIndexPath:(NSIndexPath *)indexPath {
     EIWaterfallCollectionViewCell *waterfallCell = [collectionView dequeueReusableCellWithReuseIdentifier:WaterfallCellIdentifier
                                                                                              forIndexPath:indexPath];
-    if(indexPath.section % 2 == 0) {
-        waterfallCell.backgroundColor = [UIColor blackColor];
-    } else {
-        waterfallCell.backgroundColor = [UIColor grayColor];
-    }
-    
-    waterfallCell.titleLabel.text = [NSString stringWithFormat: @"A %d", indexPath.item];
-    
+    waterfallCell.lblTitle.text = [NSString stringWithFormat: @"Item %d", indexPath.item];
     return waterfallCell;
 }
 
@@ -80,10 +76,9 @@ forSupplementaryViewOfKind:EIWaterfallTitleKind
                                  atIndexPath:(NSIndexPath *)indexPath; {
     EIHeaderReusableView *titleView =
     [collectionView dequeueReusableSupplementaryViewOfKind:kind
-                                       withReuseIdentifier:WaterfallTitleIdentifier
+                                       withReuseIdentifier:WaterfallHeaderIdentifier
                                               forIndexPath:indexPath];
-    
-    titleView.titleLabel.text = [NSString stringWithFormat: @"Section %d", indexPath.section];
+    titleView.lblTitle.text = [NSString stringWithFormat: @"Section %d", indexPath.section];
     return titleView;
 }
 
