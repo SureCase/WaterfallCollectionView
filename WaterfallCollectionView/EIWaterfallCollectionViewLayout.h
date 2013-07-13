@@ -25,9 +25,9 @@ UIKIT_EXTERN NSString * const EIWaterfallTitleKind;
 
 @property (nonatomic, weak) IBOutlet id<EIWaterfallCollectionViewDelegate> delegate;
 @property (nonatomic) UIEdgeInsets itemInsets;
-@property (nonatomic) CGSize itemSize;
-@property (nonatomic) CGFloat itemInnerMargin;
 @property (nonatomic) NSInteger numberOfColumns;
+
+@property (nonatomic) CGFloat itemWidth;
 @property (nonatomic) CGFloat titleHeight;
 
 @end

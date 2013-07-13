@@ -11,8 +11,8 @@
 #import "EIWaterfallCollectionViewLayout.h"
 #import "EIHeaderReusableView.h"
 
-static NSString * const WaterfallCellIdentifier = @"WaterfallCell";
-static NSString * const AlbumTitleIdentifier = @"AlbumTitle";
+static NSString* const WaterfallCellIdentifier = @"WaterfallCellIdentifier";
+static NSString* const WaterfallTitleIdentifier = @"WaterfallTitleIdentifier";
 
 @interface EIViewController () <EIWaterfallCollectionViewDelegate, UICollectionViewDelegate>
 
@@ -25,10 +25,12 @@ static NSString * const AlbumTitleIdentifier = @"AlbumTitle";
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.cv.delegate = self;
-    [self.cv registerClass:[EIWaterfallCollectionViewCell class]forCellWithReuseIdentifier:WaterfallCellIdentifier];
+
+    [self.cv registerClass:[EIWaterfallCollectionViewCell class]
+forCellWithReuseIdentifier:WaterfallCellIdentifier];
     [self.cv registerClass:[EIHeaderReusableView class]
-            forSupplementaryViewOfKind:EIWaterfallTitleKind
-                   withReuseIdentifier:AlbumTitleIdentifier];
+forSupplementaryViewOfKind:EIWaterfallTitleKind
+       withReuseIdentifier:WaterfallTitleIdentifier];
 }
 
 #pragma mark - UICollectionViewDataSource
@@ -78,7 +80,7 @@ static NSString * const AlbumTitleIdentifier = @"AlbumTitle";
                                  atIndexPath:(NSIndexPath *)indexPath; {
     EIHeaderReusableView *titleView =
     [collectionView dequeueReusableSupplementaryViewOfKind:kind
-                                       withReuseIdentifier:AlbumTitleIdentifier
+                                       withReuseIdentifier:WaterfallTitleIdentifier
                                               forIndexPath:indexPath];
     
     titleView.titleLabel.text = [NSString stringWithFormat: @"Section %d", indexPath.section];

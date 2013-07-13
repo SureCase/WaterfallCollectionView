@@ -8,13 +8,15 @@
 
 #import "EIWaterfallCollectionViewLayout.h"
 
-static NSString * const EIWaterfallLayoutCellKind = @"WaterfallCell";
-NSString * const EIWaterfallTitleKind = @"WaterfalHeader";
+NSString* const EIWaterfallLayoutCellKind = @"WaterfallCell";
+NSString* const EIWaterfallTitleKind = @"WaterfalHeader";
 
 @interface EIWaterfallCollectionViewLayout()
 
-@property (nonatomic, strong) NSDictionary *layoutInfo;
-@property (nonatomic, strong) NSArray *sectionsHeights;
+@property (nonatomic) CGFloat itemInnerMargin;
+@property (nonatomic) NSDictionary *layoutInfo;
+@property (nonatomic) NSArray *sectionsHeights;
+@property (nonatomic) NSArray *itemsInSectionsHeights;
 
 @end
 
@@ -42,74 +44,29 @@ NSString * const EIWaterfallTitleKind = @"WaterfalHeader";
 
 - (void)setTitleHeight:(CGFloat)titleHeight {
     if (_titleHeight == titleHeight) return;
-    
     _titleHeight = titleHeight;
-    
+    [self invalidateLayout];
+}
+
+- (void) setItemWidth:(CGFloat)itemWidth {
+    if(_itemWidth == itemWidth) return;
+    _itemWidth = itemWidth;
     [self invalidateLayout];
 }
 
 - (void)setup {
-    self.itemInsets = UIEdgeInsetsMake(22.0f, 22.0f, 13.0f, 22.0f);
-    self.itemSize = CGSizeMake(125.0f, 125.0f);
+    self.itemInsets = UIEdgeInsetsMake(15.0f, 15.0f, 15.0f, 15.0f);
     self.numberOfColumns = 2;
     self.titleHeight = 26.0f;
-    
+    self.itemWidth = 140.0f;
     self.itemInnerMargin = 0;
 }
 
 - (void)prepareLayout {
-    if(self.numberOfColumns > 1) {
-        self.itemInnerMargin =
-            (self.collectionView.bounds.size.width -
-             self.itemInsets.left -
-             self.itemInsets.right -
-             self.numberOfColumns * self.itemSize.width)
-            /
-            (self.numberOfColumns - 1);
-    }
-    NSMutableDictionary *newLayoutInfo = [NSMutableDictionary dictionary];
-    NSMutableDictionary *cellLayoutInfo = [NSMutableDictionary dictionary];
-    NSMutableDictionary *titleLayoutInfo = [NSMutableDictionary dictionary];
-    
-    NSInteger sectionCount = [self.collectionView numberOfSections];
-    NSIndexPath *indexPath = [NSIndexPath indexPathForItem:0 inSection:0];
-    
-    /*--- SECTIONS ---*/
-    NSMutableArray *newSectionsHeights = [NSMutableArray array];
-    for (NSInteger section = 0; section < sectionCount; section++) {
-        [newSectionsHeights addObject:[self calculateHeightForSection:[NSNumber numberWithInt:section]]];
-    }
-    self.sectionsHeights = [NSArray arrayWithArray:newSectionsHeights];
-    
-    for (NSInteger section = 0; section < sectionCount; section++) {
-        NSInteger itemCount = [self.collectionView numberOfItemsInSection:section];
-        for (NSInteger item = 0; item < itemCount; item++) {
-            indexPath = [NSIndexPath indexPathForItem:item inSection:section];
-            
-            UICollectionViewLayoutAttributes *itemAttributes = [UICollectionViewLayoutAttributes layoutAttributesForCellWithIndexPath:indexPath];
-            itemAttributes.frame = [self frameForWaterfallCellIndexPath:indexPath];
-            
-            cellLayoutInfo[indexPath] = itemAttributes;
-            
-            if (indexPath.item == 0) {
-                UICollectionViewLayoutAttributes *titleAttributes = [UICollectionViewLayoutAttributes
-                                                                     layoutAttributesForSupplementaryViewOfKind:EIWaterfallTitleKind
-                                                                     withIndexPath:indexPath];
-                titleAttributes.frame = [self frameForAlbumTitleAtIndexPath:indexPath];
-                titleLayoutInfo[indexPath] = titleAttributes;
-            }
-        }
-    }
-    
-    newLayoutInfo[EIWaterfallLayoutCellKind] = cellLayoutInfo;
-    newLayoutInfo[EIWaterfallTitleKind] = titleLayoutInfo;
-    
-    self.layoutInfo = newLayoutInfo;
-    
-}
-
-- (void) calculateSectionsHeights {
-    
+    [self calculateItemsInnerMargin];
+    [self calculateItemsHeights];
+    [self calculateSectionsHeights];
+    [self calculateItemsAttributes];
 }
 
 - (NSArray *)layoutAttributesForElementsInRect:(CGRect)rect {
@@ -118,7 +75,7 @@ NSString * const EIWaterfallTitleKind = @"WaterfalHeader";
     [self.layoutInfo enumerateKeysAndObjectsUsingBlock:^(NSString *elementIdentifier,
                                                          NSDictionary *elementsInfo,
                                                          BOOL *stop) {
-    [elementsInfo enumerateKeysAndObjectsUsingBlock:^(NSIndexPath *indexPath,
+        [elementsInfo enumerateKeysAndObjectsUsingBlock:^(NSIndexPath *indexPath,
                                                           UICollectionViewLayoutAttributes *attributes,
                                                           BOOL *innerStop) {
             if (CGRectIntersectsRect(rect, attributes.frame)) {
@@ -149,29 +106,126 @@ NSString * const EIWaterfallTitleKind = @"WaterfalHeader";
     return CGSizeMake(self.collectionView.bounds.size.width, height);
 }
 
-#pragma mark - Private
+#pragma mark - Prepare layout calculation
+
+- (void) calculateItemsInnerMargin {
+    if(self.numberOfColumns > 1) {
+        self.itemInnerMargin =
+        (self.collectionView.bounds.size.width -
+         self.itemInsets.left - self.itemInsets.right -
+         self.numberOfColumns * self.itemWidth)
+        /
+        (self.numberOfColumns - 1);
+    }
+}
+
+- (void) calculateItemsHeights {
+    NSMutableArray *itemsInSectionsHeights = [NSMutableArray arrayWithCapacity:self.collectionView.numberOfSections];
+    NSIndexPath *itemIndex;
+    for (NSInteger section = 0; section < self.collectionView.numberOfSections; section++) {
+        NSMutableArray *itemsHeights = [NSMutableArray arrayWithCapacity:[self.collectionView numberOfItemsInSection:section]];
+        for (NSInteger item = 0; item < [self.collectionView numberOfItemsInSection:section]; item++) {
+            itemIndex = [NSIndexPath indexPathForItem:item inSection:section];
+            CGFloat itemHeight = [self.delegate collectionView:self.collectionView
+                                                        layout:self
+                                      heightForItemAtIndexPath:itemIndex];
+            [itemsHeights addObject:[NSNumber numberWithFloat:itemHeight]];
+        }
+        [itemsInSectionsHeights addObject:itemsHeights];
+    }
+    
+    self.itemsInSectionsHeights = itemsInSectionsHeights;
+}
+
+- (void) calculateSectionsHeights {
+    NSMutableArray *newSectionsHeights = [NSMutableArray array];
+    NSInteger sectionCount = [self.collectionView numberOfSections];
+    for (NSInteger section = 0; section < sectionCount; section++) {
+        [newSectionsHeights addObject:[self calculateHeightForSection:section]];
+    }
+    self.sectionsHeights = [NSArray arrayWithArray:newSectionsHeights];
+}
+
+- (NSNumber*) calculateHeightForSection: (NSInteger)section {
+    NSInteger sectionColumns[self.numberOfColumns];
+    for (NSInteger column = 0; column < self.numberOfColumns; column++) {
+        sectionColumns[column] = self.titleHeight + self.itemInnerMargin;
+    }
+    
+    NSInteger itemCount = [self.collectionView numberOfItemsInSection:section];
+    NSIndexPath *indexPath;
+    for (NSInteger item = 0; item < itemCount; item++) {
+        indexPath = [NSIndexPath indexPathForItem:item inSection:section];
+        
+        NSInteger currentColumn = 0;
+        for (NSInteger column = 0; column < self.numberOfColumns; column++) {
+            if(sectionColumns[currentColumn] > sectionColumns[column]) {
+                currentColumn = column;
+            }
+        }
+        
+        sectionColumns[currentColumn] += [[[self.itemsInSectionsHeights objectAtIndex:section]
+                                           objectAtIndex:indexPath.item] floatValue];
+        sectionColumns[currentColumn] += self.itemInnerMargin;
+    }
+    
+    int biggestColumn = 0;
+    for (NSInteger column = 0; column < self.numberOfColumns; column++) {
+        if(sectionColumns[biggestColumn] < sectionColumns[column]) {
+            biggestColumn = column;
+        }
+    }
+    
+    return [NSNumber numberWithFloat: sectionColumns[biggestColumn]];
+}
+
+- (void) calculateItemsAttributes {
+    NSMutableDictionary *newLayoutInfo = [NSMutableDictionary dictionary];
+    NSMutableDictionary *cellLayoutInfo = [NSMutableDictionary dictionary];
+    NSMutableDictionary *titleLayoutInfo = [NSMutableDictionary dictionary];
+    
+    NSIndexPath *indexPath;
+    for (NSInteger section = 0; section < [self.collectionView numberOfSections]; section++) {
+        for (NSInteger item = 0; item < [self.collectionView numberOfItemsInSection:section]; item++) {
+            indexPath = [NSIndexPath indexPathForItem:item inSection:section];
+            
+            UICollectionViewLayoutAttributes *itemAttributes = [UICollectionViewLayoutAttributes layoutAttributesForCellWithIndexPath:indexPath];
+            itemAttributes.frame = [self frameForWaterfallCellIndexPath:indexPath];
+            cellLayoutInfo[indexPath] = itemAttributes;
+            
+            //Only one header in section, so we get only item at 0 position
+            if (indexPath.item == 0) {
+                UICollectionViewLayoutAttributes *titleAttributes = [UICollectionViewLayoutAttributes
+                                                                     layoutAttributesForSupplementaryViewOfKind:EIWaterfallTitleKind
+                                                                     withIndexPath:indexPath];
+                titleAttributes.frame = [self frameForWaterfallHeaderAtIndexPath:indexPath];
+                titleLayoutInfo[indexPath] = titleAttributes;
+            }
+        }
+    }
+    
+    newLayoutInfo[EIWaterfallLayoutCellKind] = cellLayoutInfo;
+    newLayoutInfo[EIWaterfallTitleKind] = titleLayoutInfo;
+    
+    self.layoutInfo = newLayoutInfo;
+    
+}
+
+#pragma mark - Items frames
 
 - (CGRect)frameForWaterfallCellIndexPath:(NSIndexPath *)indexPath {
-    CGFloat itemMargin =
-    (self.collectionView.bounds.size.width -
-     self.itemInsets.left -
-     self.itemInsets.right -
-     self.numberOfColumns * self.itemSize.width)
-    /
-    (self.numberOfColumns - 1);
-    CGFloat width = self.itemSize.width;
-    CGFloat height = [self.delegate collectionView:self.collectionView
-                                            layout:self
-                          heightForItemAtIndexPath:indexPath];
+    CGFloat width = self.itemWidth;
+    CGFloat height = [[[self.itemsInSectionsHeights objectAtIndex:indexPath.section]
+                       objectAtIndex:indexPath.item] floatValue];
     
-    CGFloat topInset = 0;
+    CGFloat topInset = self.itemInsets.top;
     for (NSInteger section = 0; section < indexPath.section; section++) {
         topInset += [[self.sectionsHeights objectAtIndex:section] integerValue];
     }
 
     NSInteger columnsHeights[self.numberOfColumns];
     for (NSInteger column = 0; column < self.numberOfColumns; column++) {
-        columnsHeights[column] = self.titleHeight;
+        columnsHeights[column] = self.titleHeight + self.itemInnerMargin;
     }
     
     for (NSInteger item = 0; item < indexPath.item; item++) {
@@ -183,9 +237,8 @@ NSString * const EIWaterfallTitleKind = @"WaterfalHeader";
             }
         }
                 
-        columnsHeights[currentColumn] += [self.delegate collectionView:self.collectionView
-                                                layout:self
-                              heightForItemAtIndexPath:ip];
+        columnsHeights[currentColumn] += [[[self.itemsInSectionsHeights objectAtIndex:ip.section]
+                                           objectAtIndex:ip.item] floatValue];
         columnsHeights[currentColumn] += self.itemInnerMargin;
     }
     
@@ -196,64 +249,26 @@ NSString * const EIWaterfallTitleKind = @"WaterfalHeader";
         }
     }
     
-    CGFloat originX = self.itemInsets.left + (columnForCurrentItem * (self.itemSize.width) + columnForCurrentItem * itemMargin);
-    CGFloat originY = self.itemInsets.top + columnsHeights[columnForCurrentItem] + topInset;
+    CGFloat originX = self.itemInsets.left + (columnForCurrentItem * (self.itemWidth) + columnForCurrentItem * self.itemInnerMargin);
+    CGFloat originY =  columnsHeights[columnForCurrentItem] + topInset;
     
     return CGRectMake(originX, originY, width, height);
 }
 
-- (CGRect)frameForAlbumTitleAtIndexPath:(NSIndexPath *)indexPath {
+- (CGRect)frameForWaterfallHeaderAtIndexPath:(NSIndexPath *)indexPath {
     CGFloat width = self.collectionView.bounds.size.width -
         self.itemInsets.left -
         self.itemInsets.right;
     CGFloat height = self.titleHeight;
     
-    CGFloat originY = 0;
+    CGFloat originY = self.itemInsets.top;
     for (NSInteger i = 0; i < indexPath.section; i++) {
-        originY += [[self.sectionsHeights objectAtIndex:i] integerValue];
+        originY += [[self.sectionsHeights objectAtIndex:i] floatValue];
     }
         
     CGFloat originX = self.itemInsets.left;
 
     return CGRectMake(originX, originY, width, height);
-}
-
-- (NSNumber*) calculateHeightForSection: (NSNumber*)sectionNumber {
-    int sectionColumns[self.numberOfColumns];
-    for (int column = 0; column < self.numberOfColumns; column++) {
-        sectionColumns[column] = 0;
-    }
-    
-    int section = [sectionNumber integerValue];
-    NSInteger itemCount = [self.collectionView numberOfItemsInSection:section];
-    NSIndexPath *indexPath;
-    for (NSInteger item = 0; item < itemCount; item++) {
-        indexPath = [NSIndexPath indexPathForItem:item inSection:section];
-        
-        int currentColumn = 0;
-        for (int column = 0; column < self.numberOfColumns; column++) {
-            if(sectionColumns[currentColumn] > sectionColumns[column]) {
-                currentColumn = column;
-            }
-        }
-        
-        sectionColumns[currentColumn] += [self.delegate collectionView:self.collectionView
-                                                                layout:self
-                                              heightForItemAtIndexPath:indexPath];
-        sectionColumns[currentColumn] += self.itemInnerMargin;
-    }
-    
-    int biggestColumn = 0;
-    for (int column = 0; column < self.numberOfColumns; column++) {
-        if(sectionColumns[biggestColumn] < sectionColumns[column]) {
-            biggestColumn = column;
-        }
-    }
-    
-    return
-    [NSNumber numberWithInt:
-        self.titleHeight +
-        sectionColumns[biggestColumn]];
 }
 
 @end
