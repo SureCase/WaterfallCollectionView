@@ -58,10 +58,11 @@ NSString* const EIWaterfallLayouDecorationKind = @"Decoration";
 
 - (void)setup {
     [self registerClass:[EIWaterfallDecorationReusableView class] forDecorationViewOfKind:EIWaterfallLayouDecorationKind];
-    self.itemInsets = UIEdgeInsetsMake(10.0f, 10.0f, 10.0f, 10.0f);
     self.headerHeight = 26.0f;
-    self.itemWidth = 135.0f;
+    self.itemWidth = 140.0f;
     self.itemInnerMargin = 0;
+    self.topInset = 10.0f;
+    self.bottomInset = 10.0f;
 }
 
 - (void)prepareLayout {
@@ -105,11 +106,11 @@ NSString* const EIWaterfallLayouDecorationKind = @"Decoration";
 }
 
 - (CGSize)collectionViewContentSize {
-    CGFloat height = self.itemInsets.top;
+    CGFloat height = self.topInset;
     for (NSNumber *h in self.sectionsHeights) {
         height += [h integerValue];
     }
-    height += self.itemInsets.bottom;
+    height += self.bottomInset;
     
     return CGSizeMake(self.collectionView.bounds.size.width, height);
 }
@@ -124,10 +125,9 @@ NSString* const EIWaterfallLayouDecorationKind = @"Decoration";
     if(self.columnsCount > 1) {
         self.itemInnerMargin =
         (self.collectionView.bounds.size.width -
-         self.itemInsets.left - self.itemInsets.right -
          self.columnsCount * self.itemWidth)
         /
-        (self.columnsCount - 1);
+        (self.columnsCount + 1);
     }
 }
 
@@ -236,7 +236,7 @@ NSString* const EIWaterfallLayouDecorationKind = @"Decoration";
     CGFloat height = [[[self.itemsInSectionsHeights objectAtIndex:indexPath.section]
                        objectAtIndex:indexPath.item] floatValue];
     
-    CGFloat topInset = self.itemInsets.top;
+    CGFloat topInset = self.topInset;
     for (NSInteger section = 0; section < indexPath.section; section++) {
         topInset += [[self.sectionsHeights objectAtIndex:section] integerValue];
     }
@@ -267,7 +267,9 @@ NSString* const EIWaterfallLayouDecorationKind = @"Decoration";
         }
     }
     
-    CGFloat originX = self.itemInsets.left + (columnForCurrentItem * (self.itemWidth) + columnForCurrentItem * self.itemInnerMargin);
+    CGFloat originX = self.itemInnerMargin +
+        columnForCurrentItem * self.itemWidth +
+        columnForCurrentItem * self.itemInnerMargin;
     CGFloat originY =  columnsHeights[columnForCurrentItem] + topInset;
     
     return CGRectMake(originX, originY, width, height);
@@ -275,16 +277,15 @@ NSString* const EIWaterfallLayouDecorationKind = @"Decoration";
 
 - (CGRect)frameForWaterfallHeaderAtIndexPath:(NSIndexPath *)indexPath {
     CGFloat width = self.collectionView.bounds.size.width -
-        self.itemInsets.left -
-        self.itemInsets.right;
+        self.itemInnerMargin * 2;
     CGFloat height = self.headerHeight;
     
-    CGFloat originY = self.itemInsets.top;
+    CGFloat originY = self.topInset;
     for (NSInteger i = 0; i < indexPath.section; i++) {
         originY += [[self.sectionsHeights objectAtIndex:i] floatValue];
     }
         
-    CGFloat originX = self.itemInsets.left;    
+    CGFloat originX = self.itemInnerMargin;
     return CGRectMake(originX, originY, width, height);
 }
 

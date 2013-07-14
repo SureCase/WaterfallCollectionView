@@ -18,13 +18,13 @@
 
 @end
 
-
 @interface EIWaterfallCollectionViewLayout : UICollectionViewLayout
 
 @property (nonatomic, weak) IBOutlet id<EIWaterfallCollectionViewDelegate> delegate;
-@property (nonatomic) UIEdgeInsets itemInsets;
-
 @property (nonatomic) CGFloat itemWidth;
 @property (nonatomic) CGFloat headerHeight;
+
+@property (nonatomic) CGFloat topInset;
+@property (nonatomic) CGFloat bottomInset;
 
 @end
