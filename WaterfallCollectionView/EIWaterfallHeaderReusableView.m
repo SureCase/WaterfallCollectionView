@@ -6,13 +6,13 @@
 //  Copyright (c) 2013 Event Info Ltd. All rights reserved.
 //
 
-#import "EIHeaderReusableView.h"
+#import "EIWaterfallHeaderReusableView.h"
 
-@interface EIHeaderReusableView()
+@interface EIWaterfallHeaderReusableView()
 
 @end
 
-@implementation EIHeaderReusableView
+@implementation EIWaterfallHeaderReusableView
 
 - (id)initWithFrame:(CGRect)frame {
     self = [super initWithFrame:frame];

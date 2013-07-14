@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface EIHeaderReusableView : UICollectionReusableView
+@interface EIWaterfallHeaderReusableView : UICollectionReusableView
 
 @property (weak, nonatomic) IBOutlet UILabel *lblTitle;
 

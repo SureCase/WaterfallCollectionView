@@ -47,7 +47,7 @@
                                         </connections>
                                     </collectionViewCell>
                                 </cells>
-                                <collectionReusableView key="sectionHeaderView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="WaterfallHeader" id="nya-GD-owG" customClass="EIHeaderReusableView">
+                                <collectionReusableView key="sectionHeaderView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="WaterfallHeader" id="nya-GD-owG" customClass="EIWaterfallHeaderReusableView">
                                     <rect key="frame" x="0.0" y="0.0" width="320" height="50"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                     <subviews>
@@ -89,12 +89,6 @@
         </scene>
     </scenes>
     <classes>
-        <class className="EIHeaderReusableView" superclassName="UICollectionReusableView">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/EIHeaderReusableView.h"/>
-            <relationships>
-                <relationship kind="outlet" name="lblTitle" candidateClass="UILabel"/>
-            </relationships>
-        </class>
         <class className="EIViewController" superclassName="UIViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/EIViewController.h"/>
             <relationships>
@@ -103,6 +97,12 @@
         </class>
         <class className="EIWaterfallCollectionViewCell" superclassName="UICollectionViewCell">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/EIWaterfallCollectionViewCell.h"/>
+            <relationships>
+                <relationship kind="outlet" name="lblTitle" candidateClass="UILabel"/>
+            </relationships>
+        </class>
+        <class className="EIWaterfallHeaderReusableView" superclassName="UICollectionReusableView">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/EIWaterfallHeaderReusableView.h"/>
             <relationships>
                 <relationship kind="outlet" name="lblTitle" candidateClass="UILabel"/>
             </relationships>

@@ -20,7 +20,7 @@
 		9976E419178FFE3F005966E8 /* EIViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9976E418178FFE3F005966E8 /* EIViewController.m */; };
 		9976E427179022B9005966E8 /* EIWaterfallCollectionViewLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = 9976E426179022B9005966E8 /* EIWaterfallCollectionViewLayout.m */; };
 		9976E42A1790238C005966E8 /* EIWaterfallCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 9976E4291790238C005966E8 /* EIWaterfallCollectionViewCell.m */; };
-		9976E42D1790819E005966E8 /* EIHeaderReusableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 9976E42C1790819E005966E8 /* EIHeaderReusableView.m */; };
+		9976E42D1790819E005966E8 /* EIWaterfallHeaderReusableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 9976E42C1790819E005966E8 /* EIWaterfallHeaderReusableView.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -44,8 +44,8 @@
 		9976E426179022B9005966E8 /* EIWaterfallCollectionViewLayout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EIWaterfallCollectionViewLayout.m; sourceTree = "<group>"; };
 		9976E4281790238C005966E8 /* EIWaterfallCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EIWaterfallCollectionViewCell.h; sourceTree = "<group>"; };
 		9976E4291790238C005966E8 /* EIWaterfallCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EIWaterfallCollectionViewCell.m; sourceTree = "<group>"; };
-		9976E42B1790819D005966E8 /* EIHeaderReusableView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EIHeaderReusableView.h; sourceTree = "<group>"; };
-		9976E42C1790819E005966E8 /* EIHeaderReusableView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EIHeaderReusableView.m; sourceTree = "<group>"; };
+		9976E42B1790819D005966E8 /* EIWaterfallHeaderReusableView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EIWaterfallHeaderReusableView.h; sourceTree = "<group>"; };
+		9976E42C1790819E005966E8 /* EIWaterfallHeaderReusableView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EIWaterfallHeaderReusableView.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -102,8 +102,8 @@
 				9976E426179022B9005966E8 /* EIWaterfallCollectionViewLayout.m */,
 				9976E4281790238C005966E8 /* EIWaterfallCollectionViewCell.h */,
 				9976E4291790238C005966E8 /* EIWaterfallCollectionViewCell.m */,
-				9976E42B1790819D005966E8 /* EIHeaderReusableView.h */,
-				9976E42C1790819E005966E8 /* EIHeaderReusableView.m */,
+				9976E42B1790819D005966E8 /* EIWaterfallHeaderReusableView.h */,
+				9976E42C1790819E005966E8 /* EIWaterfallHeaderReusableView.m */,
 			);
 			path = WaterfallCollectionView;
 			sourceTree = "<group>";
@@ -194,7 +194,7 @@
 				9976E419178FFE3F005966E8 /* EIViewController.m in Sources */,
 				9976E427179022B9005966E8 /* EIWaterfallCollectionViewLayout.m in Sources */,
 				9976E42A1790238C005966E8 /* EIWaterfallCollectionViewCell.m in Sources */,
-				9976E42D1790819E005966E8 /* EIHeaderReusableView.m in Sources */,
+				9976E42D1790819E005966E8 /* EIWaterfallHeaderReusableView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

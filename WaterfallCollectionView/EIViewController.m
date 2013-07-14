@@ -9,7 +9,7 @@
 #import "EIViewController.h"
 #import "EIWaterfallCollectionViewCell.h"
 #import "EIWaterfallCollectionViewLayout.h"
-#import "EIHeaderReusableView.h"
+#import "EIWaterfallHeaderReusableView.h"
 
 static NSString* const WaterfallCellIdentifier = @"WaterfallCell";
 static NSString* const WaterfallHeaderIdentifier = @"WaterfallHeader";
@@ -74,7 +74,7 @@ static NSString* const WaterfallHeaderIdentifier = @"WaterfallHeader";
 - (UICollectionReusableView *)collectionView:(UICollectionView *)collectionView
            viewForSupplementaryElementOfKind:(NSString *)kind
                                  atIndexPath:(NSIndexPath *)indexPath; {
-    EIHeaderReusableView *titleView =
+    EIWaterfallHeaderReusableView *titleView =
     [collectionView dequeueReusableSupplementaryViewOfKind:kind
                                        withReuseIdentifier:WaterfallHeaderIdentifier
                                               forIndexPath:indexPath];
