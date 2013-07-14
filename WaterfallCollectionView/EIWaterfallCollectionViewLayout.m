@@ -7,8 +7,10 @@
 //
 
 #import "EIWaterfallCollectionViewLayout.h"
+#import "EIWaterfallDecorationReusableView.h"
 
 NSString* const EIWaterfallLayoutCellKind = @"WaterfallCell";
+NSString* const EIWaterfallLayouDecorationKind = @"Decoration";
 
 @interface EIWaterfallCollectionViewLayout()
 
@@ -54,6 +56,7 @@ NSString* const EIWaterfallLayoutCellKind = @"WaterfallCell";
 }
 
 - (void)setup {
+    [self registerClass:[EIWaterfallDecorationReusableView class] forDecorationViewOfKind:EIWaterfallLayouDecorationKind];
     self.itemInsets = UIEdgeInsetsMake(15.0f, 15.0f, 15.0f, 15.0f);
     self.numberOfColumns = 2;
     self.headerHeight = 26.0f;
@@ -66,8 +69,6 @@ NSString* const EIWaterfallLayoutCellKind = @"WaterfallCell";
     [self calculateItemsHeights];
     [self calculateSectionsHeights];
     [self calculateItemsAttributes];
-    
-    NSLog(@"Prepared layout %@", self.sectionsHeights);
 }
 
 - (NSArray *)layoutAttributesForElementsInRect:(CGRect)rect {
@@ -95,6 +96,11 @@ NSString* const EIWaterfallLayoutCellKind = @"WaterfallCell";
 - (UICollectionViewLayoutAttributes *)layoutAttributesForSupplementaryViewOfKind:(NSString *)kind
                                                                      atIndexPath:(NSIndexPath *)indexPath {
     return self.layoutInfo[UICollectionElementKindSectionHeader][indexPath];
+}
+
+- (UICollectionViewLayoutAttributes *)layoutAttributesForDecorationViewOfKind:
+(NSString*)decorationViewKind atIndexPath:(NSIndexPath *)indexPath {
+    return self.layoutInfo[EIWaterfallLayouDecorationKind][indexPath];
 }
 
 - (CGSize)collectionViewContentSize {
@@ -185,7 +191,12 @@ NSString* const EIWaterfallLayoutCellKind = @"WaterfallCell";
     NSMutableDictionary *cellLayoutInfo = [NSMutableDictionary dictionary];
     NSMutableDictionary *titleLayoutInfo = [NSMutableDictionary dictionary];
     
-    NSIndexPath *indexPath;
+    NSIndexPath *indexPath = [NSIndexPath indexPathForItem:0 inSection:0];
+    UICollectionViewLayoutAttributes *emblemAttributes =
+    [UICollectionViewLayoutAttributes layoutAttributesForDecorationViewOfKind:EIWaterfallLayouDecorationKind
+                                                                withIndexPath:indexPath];
+    emblemAttributes.frame = [self frameForWaterfallDecoration];
+    
     for (NSInteger section = 0; section < [self.collectionView numberOfSections]; section++) {
         for (NSInteger item = 0; item < [self.collectionView numberOfItemsInSection:section]; item++) {
             indexPath = [NSIndexPath indexPathForItem:item inSection:section];
@@ -207,6 +218,7 @@ NSString* const EIWaterfallLayoutCellKind = @"WaterfallCell";
     
     newLayoutInfo[EIWaterfallLayoutCellKind] = cellLayoutInfo;
     newLayoutInfo[UICollectionElementKindSectionHeader] = titleLayoutInfo;
+    newLayoutInfo[EIWaterfallLayouDecorationKind] = @{indexPath: emblemAttributes};
     
     self.layoutInfo = newLayoutInfo;
     
@@ -269,6 +281,13 @@ NSString* const EIWaterfallLayoutCellKind = @"WaterfallCell";
         
     CGFloat originX = self.itemInsets.left;    
     return CGRectMake(originX, originY, width, height);
+}
+
+- (CGRect) frameForWaterfallDecoration {
+    CGSize size = [EIWaterfallDecorationReusableView defaultSize];
+    CGFloat originX = floorf((self.collectionView.bounds.size.width - size.width) * 0.5f);
+    CGFloat originY = -size.height - 30.0f;
+    return CGRectMake(originX, originY, size.width, size.height);
 }
 
 @end

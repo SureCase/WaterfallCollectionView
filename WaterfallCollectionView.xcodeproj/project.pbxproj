@@ -21,6 +21,9 @@
 		9976E427179022B9005966E8 /* EIWaterfallCollectionViewLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = 9976E426179022B9005966E8 /* EIWaterfallCollectionViewLayout.m */; };
 		9976E42A1790238C005966E8 /* EIWaterfallCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 9976E4291790238C005966E8 /* EIWaterfallCollectionViewCell.m */; };
 		9976E42D1790819E005966E8 /* EIWaterfallHeaderReusableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 9976E42C1790819E005966E8 /* EIWaterfallHeaderReusableView.m */; };
+		9986EA701792A00800850AF3 /* EIWaterfallDecorationReusableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 9986EA6F1792A00800850AF3 /* EIWaterfallDecorationReusableView.m */; };
+		9986EA731792A13000850AF3 /* decorationImage.png in Resources */ = {isa = PBXBuildFile; fileRef = 9986EA711792A13000850AF3 /* decorationImage.png */; };
+		9986EA741792A13000850AF3 /* decorationImage@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9986EA721792A13000850AF3 /* decorationImage@2x.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -46,6 +49,10 @@
 		9976E4291790238C005966E8 /* EIWaterfallCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EIWaterfallCollectionViewCell.m; sourceTree = "<group>"; };
 		9976E42B1790819D005966E8 /* EIWaterfallHeaderReusableView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EIWaterfallHeaderReusableView.h; sourceTree = "<group>"; };
 		9976E42C1790819E005966E8 /* EIWaterfallHeaderReusableView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EIWaterfallHeaderReusableView.m; sourceTree = "<group>"; };
+		9986EA6E1792A00800850AF3 /* EIWaterfallDecorationReusableView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EIWaterfallDecorationReusableView.h; sourceTree = "<group>"; };
+		9986EA6F1792A00800850AF3 /* EIWaterfallDecorationReusableView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EIWaterfallDecorationReusableView.m; sourceTree = "<group>"; };
+		9986EA711792A13000850AF3 /* decorationImage.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = decorationImage.png; sourceTree = "<group>"; };
+		9986EA721792A13000850AF3 /* decorationImage@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "decorationImage@2x.png"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -104,6 +111,10 @@
 				9976E4291790238C005966E8 /* EIWaterfallCollectionViewCell.m */,
 				9976E42B1790819D005966E8 /* EIWaterfallHeaderReusableView.h */,
 				9976E42C1790819E005966E8 /* EIWaterfallHeaderReusableView.m */,
+				9986EA6E1792A00800850AF3 /* EIWaterfallDecorationReusableView.h */,
+				9986EA6F1792A00800850AF3 /* EIWaterfallDecorationReusableView.m */,
+				9986EA711792A13000850AF3 /* decorationImage.png */,
+				9986EA721792A13000850AF3 /* decorationImage@2x.png */,
 			);
 			path = WaterfallCollectionView;
 			sourceTree = "<group>";
@@ -179,6 +190,8 @@
 				9976E411178FFE3F005966E8 /* Default@2x.png in Resources */,
 				9976E413178FFE3F005966E8 /* Default-568h@2x.png in Resources */,
 				9976E416178FFE3F005966E8 /* MainStoryboard.storyboard in Resources */,
+				9986EA731792A13000850AF3 /* decorationImage.png in Resources */,
+				9986EA741792A13000850AF3 /* decorationImage@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -195,6 +208,7 @@
 				9976E427179022B9005966E8 /* EIWaterfallCollectionViewLayout.m in Sources */,
 				9976E42A1790238C005966E8 /* EIWaterfallCollectionViewCell.m in Sources */,
 				9976E42D1790819E005966E8 /* EIWaterfallHeaderReusableView.m in Sources */,
+				9986EA701792A00800850AF3 /* EIWaterfallDecorationReusableView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

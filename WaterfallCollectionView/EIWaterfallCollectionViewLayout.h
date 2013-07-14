@@ -10,8 +10,6 @@
 
 @class EIWaterfallCollectionViewLayout;
 
-UIKIT_EXTERN NSString * const EIWaterfallHeaderKind;
-
 @protocol EIWaterfallCollectionViewDelegate <UICollectionViewDelegate>
 
 - (CGFloat)collectionView:(UICollectionView *)collectionView
