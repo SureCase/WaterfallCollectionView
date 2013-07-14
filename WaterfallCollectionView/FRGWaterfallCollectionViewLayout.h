@@ -26,5 +26,5 @@
 
 @property (nonatomic) CGFloat topInset;
 @property (nonatomic) CGFloat bottomInset;
-
+@property (nonatomic) BOOL stickyHeader;
 @end

@@ -63,6 +63,7 @@ NSString* const FRGWaterfallLayouDecorationKind = @"Decoration";
     self.itemInnerMargin = 0;
     self.topInset = 10.0f;
     self.bottomInset = 10.0f;
+    self.stickyHeader = YES;
 }
 
 - (void)prepareLayout {
@@ -82,11 +83,47 @@ NSString* const FRGWaterfallLayouDecorationKind = @"Decoration";
         [elementsInfo enumerateKeysAndObjectsUsingBlock:^(NSIndexPath *indexPath,
                                                           UICollectionViewLayoutAttributes *attributes,
                                                           BOOL *innerStop) {
-            if (CGRectIntersectsRect(rect, attributes.frame)) {
+            if (CGRectIntersectsRect(rect, attributes.frame) || [elementIdentifier isEqualToString:UICollectionElementKindSectionHeader]) {
                 [allAttributes addObject:attributes];
             }
         }];
     }];
+    
+    if(!self.stickyHeader) {
+        return allAttributes;
+    }
+
+    for (UICollectionViewLayoutAttributes *layoutAttributes in allAttributes) {
+        if ([layoutAttributes.representedElementKind isEqualToString:UICollectionElementKindSectionHeader]) {
+            NSInteger section = layoutAttributes.indexPath.section;
+            NSIndexPath *firstCellIndexPath = [NSIndexPath indexPathForItem:0 inSection:section];
+            UICollectionViewLayoutAttributes *firstCellAttrs = [self layoutAttributesForItemAtIndexPath:firstCellIndexPath];
+			
+            CGFloat headerHeight = CGRectGetHeight(layoutAttributes.frame) + self.itemInnerMargin;
+            CGPoint origin = layoutAttributes.frame.origin;
+            origin.y = MIN(
+                           MAX(self.collectionView.contentOffset.y, (CGRectGetMinY(firstCellAttrs.frame) - headerHeight)),
+                           CGRectGetMinY(firstCellAttrs.frame) - headerHeight + [[self.sectionsHeights objectAtIndex:section] floatValue] - self.headerHeight
+                           );
+            
+            CGFloat width = layoutAttributes.frame.size.width;
+            if(self.collectionView.contentOffset.y >= origin.y) {
+                width = self.collectionView.bounds.size.width;
+                origin.x = 0;
+            } else {
+                width = self.collectionView.bounds.size.width -
+                    MIN((2 * self.itemInnerMargin),
+                        (origin.y - self.collectionView.contentOffset.y));
+                origin.x = (self.collectionView.bounds.size.width - width) / 2;
+            }
+            
+            layoutAttributes.zIndex = 1024;
+            layoutAttributes.frame = (CGRect){
+                .origin = origin,
+                .size = CGSizeMake(width, layoutAttributes.frame.size.height)
+            };            
+        }
+    }
     
     return allAttributes;
 }
@@ -113,6 +150,10 @@ NSString* const FRGWaterfallLayouDecorationKind = @"Decoration";
     height += self.bottomInset;
     
     return CGSizeMake(self.collectionView.bounds.size.width, height);
+}
+
+-(BOOL)shouldInvalidateLayoutForBoundsChange:(CGRect)newBound {
+    return self.stickyHeader;
 }
 
 #pragma mark - Prepare layout calculation

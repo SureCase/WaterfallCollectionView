@@ -57,7 +57,7 @@
                                             <nil key="highlightedColor"/>
                                         </label>
                                     </subviews>
-                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                    <color key="backgroundColor" white="0.1979980469" alpha="1" colorSpace="calibratedWhite"/>
                                     <constraints>
                                         <constraint firstAttribute="centerX" secondItem="cNg-Pv-r3f" secondAttribute="centerX" type="user" id="UqC-rq-hrJ"/>
                                         <constraint firstAttribute="centerY" secondItem="cNg-Pv-r3f" secondAttribute="centerY" type="user" id="yYA-Rx-ryI"/>
