@@ -1,5 +1,5 @@
 //
-//  EIWaterfallDecorationReusableView.h
+//  FRGWaterfallDecorationReusableView.h
 //  WaterfallCollectionView
 //
 //  Created by Miroslaw Stanek on 14.07.2013.
@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface EIWaterfallDecorationReusableView : UICollectionReusableView
+@interface FRGWaterfallDecorationReusableView : UICollectionReusableView
 
 + (CGSize)defaultSize;
 

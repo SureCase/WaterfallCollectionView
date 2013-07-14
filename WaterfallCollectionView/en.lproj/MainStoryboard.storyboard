@@ -21,7 +21,7 @@
                                     <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                                 </collectionViewFlowLayout>
                                 <cells>
-                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" restorationIdentifier="" reuseIdentifier="WaterfallCell" id="xCs-4Z-VAd" customClass="EIWaterfallCollectionViewCell">
+                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" restorationIdentifier="" reuseIdentifier="WaterfallCell" id="xCs-4Z-VAd" customClass="FRGWaterfallCollectionViewCell">
                                         <rect key="frame" x="57" y="50" width="206" height="175"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
@@ -47,7 +47,7 @@
                                         </connections>
                                     </collectionViewCell>
                                 </cells>
-                                <collectionReusableView key="sectionHeaderView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="WaterfallHeader" id="nya-GD-owG" customClass="EIWaterfallHeaderReusableView">
+                                <collectionReusableView key="sectionHeaderView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="WaterfallHeader" id="nya-GD-owG" customClass="FRGWaterfallHeaderReusableView">
                                     <rect key="frame" x="0.0" y="0.0" width="320" height="50"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                     <subviews>
@@ -95,14 +95,14 @@
                 <relationship kind="outlet" name="cv" candidateClass="UICollectionView"/>
             </relationships>
         </class>
-        <class className="EIWaterfallCollectionViewCell" superclassName="UICollectionViewCell">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/EIWaterfallCollectionViewCell.h"/>
+        <class className="FRGWaterfallCollectionViewCell" superclassName="UICollectionViewCell">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/FRGWaterfallCollectionViewCell.h"/>
             <relationships>
                 <relationship kind="outlet" name="lblTitle" candidateClass="UILabel"/>
             </relationships>
         </class>
-        <class className="EIWaterfallHeaderReusableView" superclassName="UICollectionReusableView">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/EIWaterfallHeaderReusableView.h"/>
+        <class className="FRGWaterfallHeaderReusableView" superclassName="UICollectionReusableView">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/FRGWaterfallHeaderReusableView.h"/>
             <relationships>
                 <relationship kind="outlet" name="lblTitle" candidateClass="UILabel"/>
             </relationships>

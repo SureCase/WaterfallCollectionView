@@ -1,5 +1,5 @@
 //
-//  EIWaterfallCollectionViewCell.h
+//  FRGWaterfallCollectionViewCell.h
 //  WaterfallCollectionView
 //
 //  Created by Miroslaw Stanek on 12.07.2013.
@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface EIWaterfallCollectionViewCell : UICollectionViewCell
+@interface FRGWaterfallCollectionViewCell : UICollectionViewCell
 
 @property (weak, nonatomic) IBOutlet UILabel *lblTitle;
 

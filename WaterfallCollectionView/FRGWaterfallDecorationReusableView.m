@@ -1,14 +1,14 @@
 //
-//  EIWaterfallDecorationReusableView.m
+//  FRGWaterfallDecorationReusableView.m
 //  WaterfallCollectionView
 //
 //  Created by Miroslaw Stanek on 14.07.2013.
 //  Copyright (c) 2013 Event Info Ltd. All rights reserved.
 //
 
-#import "EIWaterfallDecorationReusableView.h"
+#import "FRGWaterfallDecorationReusableView.h"
 
-@implementation EIWaterfallDecorationReusableView
+@implementation FRGWaterfallDecorationReusableView
 
 
 - (id)initWithFrame:(CGRect)frame {

@@ -1,5 +1,5 @@
 //
-//  EIHeaderReusableView.h
+//  FRGHeaderReusableView.h
 //  WaterfallCollectionView
 //
 //  Created by Miroslaw Stanek on 12.07.2013.
@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface EIWaterfallHeaderReusableView : UICollectionReusableView
+@interface FRGWaterfallHeaderReusableView : UICollectionReusableView
 
 @property (weak, nonatomic) IBOutlet UILabel *lblTitle;
 

@@ -1,18 +1,18 @@
 //
-//  EIHeaderReusableView.m
+//  FRGHeaderReusableView.m
 //  WaterfallCollectionView
 //
 //  Created by Miroslaw Stanek on 12.07.2013.
 //  Copyright (c) 2013 Event Info Ltd. All rights reserved.
 //
 
-#import "EIWaterfallHeaderReusableView.h"
+#import "FRGWaterfallHeaderReusableView.h"
 
-@interface EIWaterfallHeaderReusableView()
+@interface FRGWaterfallHeaderReusableView()
 
 @end
 
-@implementation EIWaterfallHeaderReusableView
+@implementation FRGWaterfallHeaderReusableView
 
 - (id)initWithFrame:(CGRect)frame {
     self = [super initWithFrame:frame];

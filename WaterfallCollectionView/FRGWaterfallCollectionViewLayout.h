@@ -1,5 +1,5 @@
 //
-//  EIWaterfallCollectionViewLayout.h
+//  FRGWaterfallCollectionViewLayout.h
 //  WaterfallCollectionView
 //
 //  Created by Miroslaw Stanek on 12.07.2013.
@@ -8,19 +8,19 @@
 
 #import <UIKit/UIKit.h>
 
-@class EIWaterfallCollectionViewLayout;
+@class FRGWaterfallCollectionViewLayout;
 
-@protocol EIWaterfallCollectionViewDelegate <UICollectionViewDelegate>
+@protocol FRGWaterfallCollectionViewDelegate <UICollectionViewDelegate>
 
 - (CGFloat)collectionView:(UICollectionView *)collectionView
-                   layout:(EIWaterfallCollectionViewLayout *)collectionViewLayout
+                   layout:(FRGWaterfallCollectionViewLayout *)collectionViewLayout
  heightForItemAtIndexPath:(NSIndexPath *)indexPath;
 
 @end
 
-@interface EIWaterfallCollectionViewLayout : UICollectionViewLayout
+@interface FRGWaterfallCollectionViewLayout : UICollectionViewLayout
 
-@property (nonatomic, weak) IBOutlet id<EIWaterfallCollectionViewDelegate> delegate;
+@property (nonatomic, weak) IBOutlet id<FRGWaterfallCollectionViewDelegate> delegate;
 @property (nonatomic) CGFloat itemWidth;
 @property (nonatomic) CGFloat headerHeight;
 

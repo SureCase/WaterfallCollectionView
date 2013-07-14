@@ -7,14 +7,14 @@
 //
 
 #import "EIViewController.h"
-#import "EIWaterfallCollectionViewCell.h"
-#import "EIWaterfallCollectionViewLayout.h"
-#import "EIWaterfallHeaderReusableView.h"
+#import "FRGWaterfallCollectionViewCell.h"
+#import "FRGWaterfallCollectionViewLayout.h"
+#import "FRGWaterfallHeaderReusableView.h"
 
 static NSString* const WaterfallCellIdentifier = @"WaterfallCell";
 static NSString* const WaterfallHeaderIdentifier = @"WaterfallHeader";
 
-@interface EIViewController () <EIWaterfallCollectionViewDelegate, UICollectionViewDelegate>
+@interface EIViewController () <FRGWaterfallCollectionViewDelegate, UICollectionViewDelegate>
 
 @property (nonatomic, strong) NSMutableArray *cellHeights;
 
@@ -26,7 +26,7 @@ static NSString* const WaterfallHeaderIdentifier = @"WaterfallHeader";
     [super viewDidLoad];
     self.cv.delegate = self;
     
-    EIWaterfallCollectionViewLayout *cvLayout = [[EIWaterfallCollectionViewLayout alloc] init];
+    FRGWaterfallCollectionViewLayout *cvLayout = [[FRGWaterfallCollectionViewLayout alloc] init];
     cvLayout.delegate = self;
     [self.cv setCollectionViewLayout:cvLayout];
     [self.cv reloadData];
@@ -49,14 +49,14 @@ static NSString* const WaterfallHeaderIdentifier = @"WaterfallHeader";
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView
                   cellForItemAtIndexPath:(NSIndexPath *)indexPath {
-    EIWaterfallCollectionViewCell *waterfallCell = [collectionView dequeueReusableCellWithReuseIdentifier:WaterfallCellIdentifier
+    FRGWaterfallCollectionViewCell *waterfallCell = [collectionView dequeueReusableCellWithReuseIdentifier:WaterfallCellIdentifier
                                                                                              forIndexPath:indexPath];
     waterfallCell.lblTitle.text = [NSString stringWithFormat: @"Item %d", indexPath.item];
     return waterfallCell;
 }
 
 - (CGFloat)collectionView:(UICollectionView *)collectionView
-                   layout:(EIWaterfallCollectionViewLayout *)collectionViewLayout
+                   layout:(FRGWaterfallCollectionViewLayout *)collectionViewLayout
  heightForItemAtIndexPath:(NSIndexPath *)indexPath {
     return [self.cellHeights[indexPath.section + 1 * indexPath.item] floatValue];
 }
@@ -74,7 +74,7 @@ static NSString* const WaterfallHeaderIdentifier = @"WaterfallHeader";
 - (UICollectionReusableView *)collectionView:(UICollectionView *)collectionView
            viewForSupplementaryElementOfKind:(NSString *)kind
                                  atIndexPath:(NSIndexPath *)indexPath; {
-    EIWaterfallHeaderReusableView *titleView =
+    FRGWaterfallHeaderReusableView *titleView =
     [collectionView dequeueReusableSupplementaryViewOfKind:kind
                                        withReuseIdentifier:WaterfallHeaderIdentifier
                                               forIndexPath:indexPath];

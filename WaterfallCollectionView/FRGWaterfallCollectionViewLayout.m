@@ -1,18 +1,18 @@
 //
-//  EIWaterfallCollectionViewLayout.m
+//  FRGWaterfallCollectionViewLayout.m
 //  WaterfallCollectionView
 //
 //  Created by Miroslaw Stanek on 12.07.2013.
 //  Copyright (c) 2013 Event Info Ltd. All rights reserved.
 //
 
-#import "EIWaterfallCollectionViewLayout.h"
-#import "EIWaterfallDecorationReusableView.h"
+#import "FRGWaterfallCollectionViewLayout.h"
+#import "FRGWaterfallDecorationReusableView.h"
 
-NSString* const EIWaterfallLayoutCellKind = @"WaterfallCell";
-NSString* const EIWaterfallLayouDecorationKind = @"Decoration";
+NSString* const FRGWaterfallLayoutCellKind = @"WaterfallCell";
+NSString* const FRGWaterfallLayouDecorationKind = @"Decoration";
 
-@interface EIWaterfallCollectionViewLayout()
+@interface FRGWaterfallCollectionViewLayout()
 
 @property (nonatomic) NSInteger columnsCount;
 @property (nonatomic) CGFloat itemInnerMargin;
@@ -22,7 +22,7 @@ NSString* const EIWaterfallLayouDecorationKind = @"Decoration";
 
 @end
 
-@implementation EIWaterfallCollectionViewLayout
+@implementation FRGWaterfallCollectionViewLayout
 
 #pragma mark - Lifecycle
 
@@ -57,7 +57,7 @@ NSString* const EIWaterfallLayouDecorationKind = @"Decoration";
 }
 
 - (void)setup {
-    [self registerClass:[EIWaterfallDecorationReusableView class] forDecorationViewOfKind:EIWaterfallLayouDecorationKind];
+    [self registerClass:[FRGWaterfallDecorationReusableView class] forDecorationViewOfKind:FRGWaterfallLayouDecorationKind];
     self.headerHeight = 26.0f;
     self.itemWidth = 140.0f;
     self.itemInnerMargin = 0;
@@ -92,7 +92,7 @@ NSString* const EIWaterfallLayouDecorationKind = @"Decoration";
 }
 
 - (UICollectionViewLayoutAttributes *)layoutAttributesForItemAtIndexPath:(NSIndexPath *)indexPath {
-    return self.layoutInfo[EIWaterfallLayoutCellKind][indexPath];
+    return self.layoutInfo[FRGWaterfallLayoutCellKind][indexPath];
 }
 
 - (UICollectionViewLayoutAttributes *)layoutAttributesForSupplementaryViewOfKind:(NSString *)kind
@@ -102,7 +102,7 @@ NSString* const EIWaterfallLayouDecorationKind = @"Decoration";
 
 - (UICollectionViewLayoutAttributes *)layoutAttributesForDecorationViewOfKind:
 (NSString*)decorationViewKind atIndexPath:(NSIndexPath *)indexPath {
-    return self.layoutInfo[EIWaterfallLayouDecorationKind][indexPath];
+    return self.layoutInfo[FRGWaterfallLayouDecorationKind][indexPath];
 }
 
 - (CGSize)collectionViewContentSize {
@@ -198,7 +198,7 @@ NSString* const EIWaterfallLayouDecorationKind = @"Decoration";
     
     NSIndexPath *indexPath = [NSIndexPath indexPathForItem:0 inSection:0];
     UICollectionViewLayoutAttributes *emblemAttributes =
-    [UICollectionViewLayoutAttributes layoutAttributesForDecorationViewOfKind:EIWaterfallLayouDecorationKind
+    [UICollectionViewLayoutAttributes layoutAttributesForDecorationViewOfKind:FRGWaterfallLayouDecorationKind
                                                                 withIndexPath:indexPath];
     emblemAttributes.frame = [self frameForWaterfallDecoration];
     
@@ -221,9 +221,9 @@ NSString* const EIWaterfallLayouDecorationKind = @"Decoration";
         }
     }
     
-    newLayoutInfo[EIWaterfallLayoutCellKind] = cellLayoutInfo;
+    newLayoutInfo[FRGWaterfallLayoutCellKind] = cellLayoutInfo;
     newLayoutInfo[UICollectionElementKindSectionHeader] = titleLayoutInfo;
-    newLayoutInfo[EIWaterfallLayouDecorationKind] = @{indexPath: emblemAttributes};
+    newLayoutInfo[FRGWaterfallLayouDecorationKind] = @{indexPath: emblemAttributes};
     
     self.layoutInfo = newLayoutInfo;
     
@@ -290,7 +290,7 @@ NSString* const EIWaterfallLayouDecorationKind = @"Decoration";
 }
 
 - (CGRect) frameForWaterfallDecoration {
-    CGSize size = [EIWaterfallDecorationReusableView defaultSize];
+    CGSize size = [FRGWaterfallDecorationReusableView defaultSize];
     CGFloat originX = floorf((self.collectionView.bounds.size.width - size.width) * 0.5f);
     CGFloat originY = -size.height - 30.0f;
     return CGRectMake(originX, originY, size.width, size.height);

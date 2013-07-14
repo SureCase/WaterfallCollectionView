@@ -1,18 +1,18 @@
 //
-//  EIWaterfallCollectionViewCell.m
+//  FRGWaterfallCollectionViewCell.m
 //  WaterfallCollectionView
 //
 //  Created by Miroslaw Stanek on 12.07.2013.
 //  Copyright (c) 2013 Event Info Ltd. All rights reserved.
 //
 
-#import "EIWaterfallCollectionViewCell.h"
+#import "FRGWaterfallCollectionViewCell.h"
 
-@interface EIWaterfallCollectionViewCell()
+@interface FRGWaterfallCollectionViewCell()
 
 @end
 
-@implementation EIWaterfallCollectionViewCell
+@implementation FRGWaterfallCollectionViewCell
 
 - (id)initWithFrame:(CGRect)frame {
     self = [super initWithFrame:frame];
