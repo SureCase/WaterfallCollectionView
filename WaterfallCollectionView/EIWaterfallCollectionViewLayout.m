@@ -14,6 +14,7 @@ NSString* const EIWaterfallLayouDecorationKind = @"Decoration";
 
 @interface EIWaterfallCollectionViewLayout()
 
+@property (nonatomic) NSInteger columnsCount;
 @property (nonatomic) CGFloat itemInnerMargin;
 @property (nonatomic) NSDictionary *layoutInfo;
 @property (nonatomic) NSArray *sectionsHeights;
@@ -57,14 +58,14 @@ NSString* const EIWaterfallLayouDecorationKind = @"Decoration";
 
 - (void)setup {
     [self registerClass:[EIWaterfallDecorationReusableView class] forDecorationViewOfKind:EIWaterfallLayouDecorationKind];
-    self.itemInsets = UIEdgeInsetsMake(15.0f, 15.0f, 15.0f, 15.0f);
-    self.numberOfColumns = 2;
+    self.itemInsets = UIEdgeInsetsMake(10.0f, 10.0f, 10.0f, 10.0f);
     self.headerHeight = 26.0f;
-    self.itemWidth = 140.0f;
+    self.itemWidth = 135.0f;
     self.itemInnerMargin = 0;
 }
 
 - (void)prepareLayout {
+    [self calculateMaxColumnsCount];
     [self calculateItemsInnerMargin];
     [self calculateItemsHeights];
     [self calculateSectionsHeights];
@@ -115,14 +116,18 @@ NSString* const EIWaterfallLayouDecorationKind = @"Decoration";
 
 #pragma mark - Prepare layout calculation
 
+- (void) calculateMaxColumnsCount {
+    self.columnsCount = self.collectionView.bounds.size.width / self.itemWidth;
+}
+
 - (void) calculateItemsInnerMargin {
-    if(self.numberOfColumns > 1) {
+    if(self.columnsCount > 1) {
         self.itemInnerMargin =
         (self.collectionView.bounds.size.width -
          self.itemInsets.left - self.itemInsets.right -
-         self.numberOfColumns * self.itemWidth)
+         self.columnsCount * self.itemWidth)
         /
-        (self.numberOfColumns - 1);
+        (self.columnsCount - 1);
     }
 }
 
@@ -154,8 +159,8 @@ NSString* const EIWaterfallLayouDecorationKind = @"Decoration";
 }
 
 - (NSNumber*) calculateHeightForSection: (NSInteger)section {
-    NSInteger sectionColumns[self.numberOfColumns];
-    for (NSInteger column = 0; column < self.numberOfColumns; column++) {
+    NSInteger sectionColumns[self.columnsCount];
+    for (NSInteger column = 0; column < self.columnsCount; column++) {
         sectionColumns[column] = self.headerHeight + self.itemInnerMargin;
     }
     
@@ -165,7 +170,7 @@ NSString* const EIWaterfallLayouDecorationKind = @"Decoration";
         indexPath = [NSIndexPath indexPathForItem:item inSection:section];
         
         NSInteger currentColumn = 0;
-        for (NSInteger column = 0; column < self.numberOfColumns; column++) {
+        for (NSInteger column = 0; column < self.columnsCount; column++) {
             if(sectionColumns[currentColumn] > sectionColumns[column]) {
                 currentColumn = column;
             }
@@ -177,7 +182,7 @@ NSString* const EIWaterfallLayouDecorationKind = @"Decoration";
     }
     
     int biggestColumn = 0;
-    for (NSInteger column = 0; column < self.numberOfColumns; column++) {
+    for (NSInteger column = 0; column < self.columnsCount; column++) {
         if(sectionColumns[biggestColumn] < sectionColumns[column]) {
             biggestColumn = column;
         }
@@ -236,15 +241,15 @@ NSString* const EIWaterfallLayouDecorationKind = @"Decoration";
         topInset += [[self.sectionsHeights objectAtIndex:section] integerValue];
     }
 
-    NSInteger columnsHeights[self.numberOfColumns];
-    for (NSInteger column = 0; column < self.numberOfColumns; column++) {
+    NSInteger columnsHeights[self.columnsCount];
+    for (NSInteger column = 0; column < self.columnsCount; column++) {
         columnsHeights[column] = self.headerHeight + self.itemInnerMargin;
     }
     
     for (NSInteger item = 0; item < indexPath.item; item++) {
         NSIndexPath *ip = [NSIndexPath indexPathForItem:item inSection:indexPath.section];
         NSInteger currentColumn = 0;
-        for(NSInteger column = 0; column < self.numberOfColumns; column++) {
+        for(NSInteger column = 0; column < self.columnsCount; column++) {
             if(columnsHeights[currentColumn] > columnsHeights[column]) {
                 currentColumn = column;
             }
@@ -256,7 +261,7 @@ NSString* const EIWaterfallLayouDecorationKind = @"Decoration";
     }
     
     NSInteger columnForCurrentItem = 0;
-    for (NSInteger column = 0; column < self.numberOfColumns; column++) {
+    for (NSInteger column = 0; column < self.columnsCount; column++) {
         if(columnsHeights[columnForCurrentItem] > columnsHeights[column]) {
             columnForCurrentItem = column;
         }

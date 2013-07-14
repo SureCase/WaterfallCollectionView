@@ -23,7 +23,6 @@
 
 @property (nonatomic, weak) IBOutlet id<EIWaterfallCollectionViewDelegate> delegate;
 @property (nonatomic) UIEdgeInsets itemInsets;
-@property (nonatomic) NSInteger numberOfColumns;
 
 @property (nonatomic) CGFloat itemWidth;
 @property (nonatomic) CGFloat headerHeight;
