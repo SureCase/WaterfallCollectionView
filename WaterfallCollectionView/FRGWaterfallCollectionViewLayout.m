@@ -60,7 +60,6 @@ NSString* const FRGWaterfallLayouDecorationKind = @"Decoration";
     [self registerClass:[FRGWaterfallDecorationReusableView class] forDecorationViewOfKind:FRGWaterfallLayouDecorationKind];
     self.headerHeight = 26.0f;
     self.itemWidth = 140.0f;
-    self.itemInnerMargin = 0;
     self.topInset = 10.0f;
     self.bottomInset = 10.0f;
     self.stickyHeader = YES;

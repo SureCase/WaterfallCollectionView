@@ -28,6 +28,13 @@ static NSString* const WaterfallHeaderIdentifier = @"WaterfallHeader";
     
     FRGWaterfallCollectionViewLayout *cvLayout = [[FRGWaterfallCollectionViewLayout alloc] init];
     cvLayout.delegate = self;
+    
+    cvLayout.headerHeight = 26.0f;
+    cvLayout.itemWidth = 140.0f;
+    cvLayout.topInset = 10.0f;
+    cvLayout.bottomInset = 10.0f;
+    cvLayout.stickyHeader = YES;
+    
     [self.cv setCollectionViewLayout:cvLayout];
     [self.cv reloadData];
 }
