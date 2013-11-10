@@ -28,8 +28,6 @@ static NSString* const WaterfallHeaderIdentifier = @"WaterfallHeader";
     
     FRGWaterfallCollectionViewLayout *cvLayout = [[FRGWaterfallCollectionViewLayout alloc] init];
     cvLayout.delegate = self;
-    
-    cvLayout.headerHeight = 26.0f;
     cvLayout.itemWidth = 140.0f;
     cvLayout.topInset = 10.0f;
     cvLayout.bottomInset = 10.0f;
@@ -66,6 +64,12 @@ static NSString* const WaterfallHeaderIdentifier = @"WaterfallHeader";
                    layout:(FRGWaterfallCollectionViewLayout *)collectionViewLayout
  heightForItemAtIndexPath:(NSIndexPath *)indexPath {
     return [self.cellHeights[indexPath.section + 1 * indexPath.item] floatValue];
+}
+
+- (CGFloat)collectionView:(UICollectionView *)collectionView
+                   layout:(FRGWaterfallCollectionViewLayout *)collectionViewLayout
+heightForHeaderAtIndexPath:(NSIndexPath *)indexPath {
+    return (indexPath.section + 1) * 26.0f;
 }
 
 - (NSMutableArray *)cellHeights {

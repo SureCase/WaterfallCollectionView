@@ -44,12 +44,6 @@ NSString* const FRGWaterfallLayouDecorationKind = @"Decoration";
     return self;
 }
 
-- (void)setHeaderHeight:(CGFloat)headerHeight {
-    if (_headerHeight == headerHeight) return;
-    _headerHeight = headerHeight;
-    [self invalidateLayout];
-}
-
 - (void) setItemWidth:(CGFloat)itemWidth {
     if(_itemWidth == itemWidth) return;
     _itemWidth = itemWidth;
@@ -58,7 +52,6 @@ NSString* const FRGWaterfallLayouDecorationKind = @"Decoration";
 
 - (void)setup {
     [self registerClass:[FRGWaterfallDecorationReusableView class] forDecorationViewOfKind:FRGWaterfallLayouDecorationKind];
-    self.headerHeight = 26.0f;
     self.itemWidth = 140.0f;
     self.topInset = 10.0f;
     self.bottomInset = 10.0f;
@@ -99,11 +92,12 @@ NSString* const FRGWaterfallLayouDecorationKind = @"Decoration";
             UICollectionViewLayoutAttributes *firstCellAttrs = [self layoutAttributesForItemAtIndexPath:firstCellIndexPath];
 			
             CGFloat headerHeight = CGRectGetHeight(layoutAttributes.frame) + self.itemInnerMargin;
+            CGFloat currentHeaderHeight = [self headerHeightForIndexPath:firstCellIndexPath];
             CGPoint origin = layoutAttributes.frame.origin;
-            origin.y = MIN(
-                           MAX(self.collectionView.contentOffset.y, (CGRectGetMinY(firstCellAttrs.frame) - headerHeight)),
-                           CGRectGetMinY(firstCellAttrs.frame) - headerHeight + [[self.sectionsHeights objectAtIndex:section] floatValue] - self.headerHeight
-                           );
+                origin.y = MIN(
+                   MAX(self.collectionView.contentOffset.y, (CGRectGetMinY(firstCellAttrs.frame) - headerHeight) - self.topInset),
+                   CGRectGetMinY(firstCellAttrs.frame) - headerHeight + [[self.sectionsHeights objectAtIndex:section] floatValue] - currentHeaderHeight - self.topInset
+                   ) + self.topInset;
             
             CGFloat width = layoutAttributes.frame.size.width;
             if(self.collectionView.contentOffset.y >= origin.y) {
@@ -200,12 +194,13 @@ NSString* const FRGWaterfallLayouDecorationKind = @"Decoration";
 
 - (NSNumber*) calculateHeightForSection: (NSInteger)section {
     NSInteger sectionColumns[self.columnsCount];
+    NSIndexPath* indexPath = [NSIndexPath indexPathForItem:0 inSection:section];
     for (NSInteger column = 0; column < self.columnsCount; column++) {
-        sectionColumns[column] = self.headerHeight + self.itemInnerMargin;
+        sectionColumns[column] = [self headerHeightForIndexPath:indexPath]
+        + self.itemInnerMargin;
     }
     
     NSInteger itemCount = [self.collectionView numberOfItemsInSection:section];
-    NSIndexPath *indexPath;
     for (NSInteger item = 0; item < itemCount; item++) {
         indexPath = [NSIndexPath indexPathForItem:item inSection:section];
         
@@ -283,7 +278,7 @@ NSString* const FRGWaterfallLayouDecorationKind = @"Decoration";
 
     NSInteger columnsHeights[self.columnsCount];
     for (NSInteger column = 0; column < self.columnsCount; column++) {
-        columnsHeights[column] = self.headerHeight + self.itemInnerMargin;
+        columnsHeights[column] = [self headerHeightForIndexPath:indexPath] + self.itemInnerMargin;
     }
     
     for (NSInteger item = 0; item < indexPath.item; item++) {
@@ -317,14 +312,14 @@ NSString* const FRGWaterfallLayouDecorationKind = @"Decoration";
 
 - (CGRect)frameForWaterfallHeaderAtIndexPath:(NSIndexPath *)indexPath {
     CGFloat width = self.collectionView.bounds.size.width -
-        self.itemInnerMargin * 2;
-    CGFloat height = self.headerHeight;
+    self.itemInnerMargin * 2;
+    CGFloat height = [self headerHeightForIndexPath:indexPath];
     
     CGFloat originY = self.topInset;
     for (NSInteger i = 0; i < indexPath.section; i++) {
         originY += [[self.sectionsHeights objectAtIndex:i] floatValue];
     }
-        
+    
     CGFloat originX = self.itemInnerMargin;
     return CGRectMake(originX, originY, width, height);
 }
@@ -334,6 +329,16 @@ NSString* const FRGWaterfallLayouDecorationKind = @"Decoration";
     CGFloat originX = floorf((self.collectionView.bounds.size.width - size.width) * 0.5f);
     CGFloat originY = -size.height - 30.0f;
     return CGRectMake(originX, originY, size.width, size.height);
+}
+
+- (CGFloat) headerHeightForIndexPath:(NSIndexPath*)indexPath {
+    if ([self.delegate respondsToSelector:@selector(collectionView:layout:heightForHeaderAtIndexPath:)]) {
+        return [self.delegate collectionView:self.collectionView
+                                      layout:self
+                  heightForHeaderAtIndexPath:indexPath];
+    }
+
+    return 0;
 }
 
 @end
