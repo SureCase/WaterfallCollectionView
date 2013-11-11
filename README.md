@@ -15,7 +15,6 @@ Setup FRGWaterfallCollectionViewLayout as UICollectionView layout in you view co
 FRGWaterfallCollectionViewLayout *cvLayout = [[FRGWaterfallCollectionViewLayout alloc] init];
     cvLayout.delegate = self;
     
-    cvLayout.headerHeight = 26.0f;
     cvLayout.itemWidth = 140.0f;
     cvLayout.topInset = 10.0f;
     cvLayout.bottomInset = 10.0f;
@@ -23,6 +22,14 @@ FRGWaterfallCollectionViewLayout *cvLayout = [[FRGWaterfallCollectionViewLayout 
     
     [self.cv setCollectionViewLayout:cvLayout];		//cv is UICollectionView property
 /*...*/
+```
+
+If you want to show section header you should implement delegate method
+
+``` objective-c
+- (CGFloat) collectionView:(UICollectionView *)collectionView
+                    layout:(FRGWaterfallCollectionViewLayout *)collectionViewLayout
+heightForHeaderAtIndexPath:(NSIndexPath *)indexPath;
 ```
 
 Screenshots
