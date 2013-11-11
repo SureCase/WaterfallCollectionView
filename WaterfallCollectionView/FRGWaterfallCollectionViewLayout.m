@@ -59,11 +59,15 @@ NSString* const FRGWaterfallLayouDecorationKind = @"Decoration";
 }
 
 - (void)prepareLayout {
-    [self calculateMaxColumnsCount];
-    [self calculateItemsInnerMargin];
-    [self calculateItemsHeights];
-    [self calculateSectionsHeights];
-    [self calculateItemsAttributes];
+    if (self.collectionView.isDecelerating || self.collectionView.isDragging) {
+        
+    } else {
+        [self calculateMaxColumnsCount];
+        [self calculateItemsInnerMargin];
+        [self calculateItemsHeights];
+        [self calculateSectionsHeights];
+        [self calculateItemsAttributes];
+    }
 }
 
 - (NSArray *)layoutAttributesForElementsInRect:(CGRect)rect {

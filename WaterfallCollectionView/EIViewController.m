@@ -44,12 +44,12 @@ static NSString* const WaterfallHeaderIdentifier = @"WaterfallHeader";
 #pragma mark - UICollectionViewDataSource
 
 - (NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView {
-    return 3;
+    return 30;
 }
 
 - (NSInteger)collectionView:(UICollectionView *)collectionView
      numberOfItemsInSection:(NSInteger)section {
-    return 10;
+    return 30;
 }
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView
@@ -74,8 +74,8 @@ heightForHeaderAtIndexPath:(NSIndexPath *)indexPath {
 
 - (NSMutableArray *)cellHeights {
     if (!_cellHeights) {
-        _cellHeights = [NSMutableArray arrayWithCapacity:50];
-        for (NSInteger i = 0; i < 50; i++) {
+        _cellHeights = [NSMutableArray arrayWithCapacity:900];
+        for (NSInteger i = 0; i < 900; i++) {
             _cellHeights[i] = @(arc4random()%100*2+100);
         }
     }
